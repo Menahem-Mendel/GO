@@ -14,7 +14,8 @@
 .vscode/**
 .vs/**
 *.json
-.idea
+.idea/**
+*.xml
 
 bin/**
 binary/**
