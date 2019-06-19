@@ -1,3 +1,5 @@
+// измените программу dup2 так, чтобы она выводила имена всех файлов, в которых найдены повторяющиеся строки.
+
 package main
 
 import (
@@ -7,11 +9,11 @@ import (
 )
 
 func main() {
+	infiles := make(map[string][]string)
 	counts := make(map[string]int)
-	foundIn := make(map[string][]string)
 	files := os.Args[1:]
 	if len(files) == 0 {
-		countLines(os.Stdin, counts, foundIn)
+		countLines(os.Stdin, counts, infiles)
 	} else {
 		for _, arg := range files {
 			f, err := os.Open(arg)
@@ -19,33 +21,37 @@ func main() {
 				fmt.Fprintf(os.Stderr, "dup2: %v\n", err)
 				continue
 			}
-			countLines(f, counts, foundIn)
+			countLines(f, counts, infiles)
 			f.Close()
 		}
 	}
 	for line, n := range counts {
 		if n > 1 {
-			fmt.Printf("%d\t%v\t%s\n", n, foundIn[line], line)
+			if len(files) != 0 {
+				fmt.Println(n, ":\t", line, "\t", infiles[line])
+			} else {
+				fmt.Println(n, ":\t", line)
+			}
 		}
 	}
 }
 
-func in(needle string, strings []string) bool {
-	for _, s := range strings {
-		if needle == s {
+func countLines(f *os.File, counts map[string]int, infiles map[string][]string) {
+	input := bufio.NewScanner(f)
+	for input.Scan() {
+		counts[input.Text()]++
+
+		if !isContains(infiles[input.Text()], f.Name()) {
+			infiles[input.Text()] = append(infiles[input.Text()], f.Name())
+		}
+	}
+}
+
+func isContains(infilestrs []string, filename string) bool {
+	for _, s := range infilestrs {
+		if s == filename {
 			return true
 		}
 	}
 	return false
-}
-
-func countLines(f *os.File, counts map[string]int, foundIn map[string][]string) {
-	input := bufio.NewScanner(f)
-	for input.Scan() {
-		counts[input.Text()]++
-		if !in(f.Name(), foundIn[input.Text()]) {
-			foundIn[input.Text()] = append(foundIn[input.Text()], f.Name())
-		}
-	}
-	// NOTE: ignoring potential errors from input.Err()
 }
