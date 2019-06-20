@@ -1,15 +1,8 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 16.
-//!+
-
-// Fetch prints the content found at each specified URL.
+// изменитите программу fetch так, 
+// чтобы к каждому аргументу URL автоматически добавлялся префикс http:// в случае отсутствия в нем такового. 
+// Можете воспользоваться функцией strings.HasPrefix
 package main
 
-// изменитите программу fetch так, 
-// чтобы к каждому аргументу URL автоматически добавлялсяпрефикс http:// в случае отсутствия в нем такового. 
-// Можете воспользоваться функцией strings.HasPrefix
 import (
 	"fmt"
 	"io/ioutil"
@@ -37,5 +30,3 @@ func main() {
 		fmt.Printf("%s", b)
 	}
 }
-
-//!-
