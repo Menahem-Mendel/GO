@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"01/tempconv"
+	"gopl.io/ch2/tempconv"
 )
 
 func main() {
@@ -15,11 +15,10 @@ func main() {
 			fmt.Fprintf(os.Stderr, "cf: %v\n", err)
 			os.Exit(1)
 		}
-		f := tempconv.Fahrenheit(t)
-		c := tempconv.Celsius(t)
-		k := tempconv.Kelvin(t)
-		fmt.Printf("%s = %s, %s = %s\n",
-			f, tempconv.FToC(f), c, tempconv.CToF(c))
+		f := tempconvert.Fahrenheit(t)
+		c := tempconvert.Celsius(t)
+		k := tempconvert.Kelvin(t)
+		fmt.Printf("%s = %s = %s, %s = %s = %s, %s = %s = %s\n", f, tempconvert.FToC(f), tempconvert.FToK(f), c, tempconvert.CToF(c), tempconvert.CToK(c), k, tempconvert.KToC(k), tempconvert.KToF(k))
 	}
 }
 
