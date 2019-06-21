@@ -1,16 +1,15 @@
-// найдите веб сайт, который содержит большое количество данных. 
-// Исследуйте работу кеширования путем двукротного запуска fetchall и сравнения времени запросов. 
-// Получаете ли вы каждый раз одно и то де содержимое? 
-// Измените fetchall так, 
+// найдите веб сайт, который содержит большое количество данных.
+// Исследуйте работу кеширования путем двукратного запуска fetchall и сравнения времени запросов.
+// Получаете ли вы каждый раз одно и то де содержимое?
+// Измените fetchall так,
 // чтобы вывод осуществлялся в файл и чтобы затем можно было его изучить
-
-// в командной строке ввести ./main.exe > file.txt
 package main
 
 import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -18,14 +17,19 @@ import (
 
 func main() {
 	start := time.Now()
+	f, err := os.OpenFile("file.txt", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 	ch := make(chan string)
 	for _, url := range os.Args[1:] {
 		go fetch(url, ch)
 	}
 	for range os.Args[1:] {
-		fmt.Println(<-ch)
+		fmt.Fprintln(f, <-ch)
 	}
-	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
+	fmt.Fprintf(f, "%.2fs elapsed\n", time.Since(start).Seconds())
+	f.Close()
 }
 
 func fetch(url string, ch chan<- string) {
