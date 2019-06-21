@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	width, height = 600, 320
+	width, height = 1800, 960
 	cells         = 100
 	xyrange       = 30.0
 	xyscale       = width / 2 / xyrange
@@ -45,8 +45,8 @@ func corner(i, j int) (float64, float64) {
 
 func f(x, y float64) float64 {
 	r := math.Hypot(x, y)
-	if r < 1{
-		r = 1
+	if r < 0.1{
+		r = 0.1
 	}
 	return math.Sin(r) / r
 }
