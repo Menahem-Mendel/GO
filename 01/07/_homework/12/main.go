@@ -2,6 +2,8 @@
 // Например, URL вида http://localhost:8000/?cycles=20 устанавливает количество циклов равным 20 вместо значения по умолчанию, раного 5. 
 // Используйте функцию strconv.Atoi для преобразования строгового параметра в целое число. 
 // Просмотреть документацию по данной функции можно с помощью команды go doc strconv.Atoi.
+
+//!
 package main
 
 import (
@@ -64,5 +66,5 @@ func lissajous(out io.Writer, params map[string]int) {
 		anim.Delay = append(anim.Delay, delay)
 		anim.Image = append(anim.Image, img)
 	}
-	gif.EncodeAll(out, &anim) // NOTE: ignoring encoding errors
+	gif.EncodeAll(out, &anim)
 }
