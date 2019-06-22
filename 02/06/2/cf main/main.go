@@ -9,9 +9,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/Menahem-Mendel/GO/02/06/_homework/01/tempconv"
-	"github.com/Menahem-Mendel/GO/02/06/_homework/02/lenconv"
-	"github.com/Menahem-Mendel/GO/02/06/_homework/02/wghtconv"
+	"github.com/Menahem-Mendel/GO/02/06/1/tempconv"
+	"github.com/Menahem-Mendel/GO/02/06/2/lenconv"
+	"github.com/Menahem-Mendel/GO/02/06/2/wghtconv"
 )
 
 func main() {
