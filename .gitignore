@@ -26,3 +26,5 @@ binary/**
 #
 *.gif
 
+src/**
+pkg/**
