@@ -1,5 +1,5 @@
-// если функция f возвращает значение float64, не являюющееся конечным, SVG файл содержит неверные элементы <polygon>.
-// Измените программу так, чтобы некорректные многоугольники были опущены
+// поэкспериментируйте с визуализациями других функций из пакета math.
+// Сможете ли вы получить изображения наподобие коробки для яиц, седла или холма?
 package main
 
 import (
@@ -44,9 +44,10 @@ func corner(i, j int) (float64, float64) {
 }
 
 func f(x, y float64) float64 {
-	r := math.Hypot(x, y)
-	if r < 0.5 {
-		r = 0.5
-	}
-	return math.Sin(r) / r
+	segment := 5
+	x = math.Abs(float64(int(x*10.0)%(segment*10))) / 10.0
+	y = math.Abs(float64(int(y*10.0)%(segment*10))) / 10.0
+	half := float64(segment) / 2.0
+	r := (x-half)*(x-half) + (y-half)*(y-half)
+	return r / 40.0
 }
